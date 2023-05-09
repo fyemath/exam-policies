@@ -9,11 +9,11 @@
         padding: 20px;
       }
       h1 {
-        font-size: 24px;
+        font-size: 36px;
         margin-bottom: 20px;
       }
       p {
-        font-size: 12px;
+        font-size: 16px;
         margin-bottom: 10px;
       }
       .timer {
@@ -42,17 +42,13 @@
       }
       footer {
         position: absolute;
-        bottom: 0;
+        bottom: 20px;
         left: 0;
         width: 100%;
         height: 5vh;
-        /* display: flex;
-			align-items: center;
-			justify-content: center;
-			scroll-snap-align: end; */
         background-color: #f2f2f2;
         border-top: 1px solid #f0c7d4;
-        font-size: 18px;
+        font-size: 24px;
         font-weight: bold;
         color: #655cc4;
         text-align: center;
@@ -75,8 +71,7 @@
     <!-- Total Time Display -->
     <div class="center">
       <p>
-        The total time of the Exam is
-        <span id="displayTotalTime"></span> minutes
+        <span id="displayTotalTime"></span>
       </p>
     </div>
     <!-- Countdown Timer Inquiry -->
@@ -91,30 +86,23 @@
     <div>
       <h1>Exam policies</h1>
       <ol>
-        <li><strong>Keep your desk clear.</strong></li>
+        <li><strong>Keep your desk clear of all items except for approved materials.</strong></li>
         <li>
           <strong
-            >Any electronic device other than the calculator must be powered off
-            and remains invisible.</strong
+            >Electronic devices, other than calculators, must be powered off and kept out of sight.</strong
           >
         </li>
-        <li><strong>No talking or looking around.</strong></li>
+        <li><strong>No talking, looking around, or communicating with other students during the exam.</strong></li>
         <li>
-          <strong
-            >Informational resources such as textbook, notes or cheat-sheets are
-            forbidden unless otherwise allowed.</strong
-          >
+          <strong>Informational resources, such as textbooks, notes, and cheat sheets, are prohibited unless explicitly permitted by the instructor.</strong>
         </li>
         <li>
-          <strong>Remain in the room until you submit your examination.</strong>
-        </li>
-        <li>
-          <strong
-            >Violating any of the above policies will be considered as
-            cheating.</strong
-          >
+          <strong>Restroom breaks will only be allowed in case of emergency but must follow the instructor's instruction.</strong>
         </li>
       </ol>
+      <p style="color: #1081F3; font-size: 24px;">
+        <strong>Any violation of these policies will be considered cheating and may result in disciplinary action.</strong>
+      </p>
     </div>
 
     <!-- Current Local Time Display -->
@@ -123,13 +111,40 @@
     </footer>
 
     <script>
-      // Convert total time to minutes and display
+      // Convert total time to hours and minutes and display
       function displayTotalTime() {
         document.getElementById("timeInquiry").style.display = "none";
 
-        var Time = document.getElementById("totalTime").value;
-        document.getElementById("displayTotalTime").innerHTML = Time;
-        // document.getElementById("displayTotalTime").style.color = "blue";
+        var totalTime = parseInt(document.getElementById("totalTime").value);
+        var hours = Math.floor(totalTime / 60);
+        var minutes = totalTime % 60;
+        var displayString = "The total time of the Exam is ";
+        if (hours > 0) {
+          displayString += hours;
+          if (hours == 1) {
+            displayString += " hour ";
+          } else {
+            displayString += " hours ";
+          }
+        }
+        if (minutes > 0) {
+          displayString += minutes;
+          if (minutes == 1) {
+            displayString += " minute";
+          } else {
+            displayString += " minutes";
+          }
+          if (hours > 0) {
+            displayString += ", equivalently, " + totalTime + " minutes."
+          } else {
+            displayString += "."
+          }
+        }
+        var totalTimeDisplay = document.getElementById("displayTotalTime");
+        totalTimeDisplay.style.fontSize = "18px";
+        totalTimeDisplay.style.fontWeight = "bold";
+        totalTimeDisplay.style.color = "blue";
+        totalTimeDisplay.innerHTML = displayString;
 
         // Remove hidden class from other elements
         var hiddenElements = document.getElementsByClassName("hidden");
@@ -141,20 +156,26 @@
       // Start countdown timer
       function startTimer() {
         document.getElementById("timer").style.display = "none";
-        var totalTime = parseInt(document.getElementById("totalTime").value);
-        var timeLeft = totalTime * 60;
+        var totalTimeLeft =
+                parseInt(document.getElementById("totalTime").value)
+        // in minutes
+        var timeLeft = totalTimeLeft * 60; // in seconds
 
         var interval = setInterval(function () {
-          var hours = Math.floor(timeLeft / 3600);
-          var minutes = Math.floor((timeLeft - hours * 3600) / 60);
-          var seconds = timeLeft % 60;
+          var hoursleft = Math.floor(timeLeft / 3600);
+          var minutesleft = Math.floor((timeLeft - hoursleft * 3600) / 60);
+          var secondsleft = timeLeft % 60;
 
           var timerDisplay = document.getElementById("displayTimer");
-          timerDisplay.style.fontSize = "36px";
+          timerDisplay.style.fontSize = "48px";
           timerDisplay.style.fontWeight = "bold";
           timerDisplay.style.color = "#5548e5";
-          timerDisplay.innerHTML =
-            "Time Remaining: " + hours + "h " + minutes + "m " + seconds + "s";
+          var displayTimer = "Time Remaining: ";
+          if (hoursleft>0) {
+            displayTimer += hoursleft + "h ";
+          }
+          displayTimer += minutesleft + "m " + secondsleft + "s";
+          timerDisplay.innerHTML = displayTimer;
 
           timeLeft--;
 

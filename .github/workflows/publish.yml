@@ -1,0 +1,19 @@
+name: Deploy to GitHub Pages
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Deploy 🚀
+      # only deploy when push to main
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+        # The branch the action should deploy to.
+          branch: gh-pages
+        # The folder the action should deploy. Adapt if you changed in Quarto config
+          folder: docs
