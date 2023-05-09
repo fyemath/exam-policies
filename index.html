@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exam Policy</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        /*  */
+        padding: 20px;
+      }
+      h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+      .timer {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      /* Add a class to hide elements */
+      .hidden {
+        display: none;
+      }
+      .center {
+        text-align: center;
+      }
+      html {
+        scroll-snap-type: y mandatory;
+      }
+      body {
+        min-height: 90vh;
+        scroll-snap-align: start;
+        font-family: sans-serif;
+        max-width: 900px;
+        margin: auto;
+        padding: 1em;
+        line-height: 1.5;
+      }
+      footer {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        height: 5vh;
+        background-color: #f2f2f2;
+        border-top: 1px solid #f0c7d4;
+        font-size: 24px;
+        font-weight: bold;
+        color: #655cc4;
+        text-align: center;
+      }
+      #timeInquiry {
+        border: 1pt solid #079fdb;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="center">Time and Exam Policy</h1>
+
+    <!-- Total Time Inquiry -->
+    <div id="timeInquiry" class="center">
+      <p>Please enter the total time in minutes to initiate the timer and hide this box.</p>
+      <input type="number" id="totalTime" min="1" required />
+      <p>To start over, please refresh the page.</p>
+    </div>
+
+    <!-- Total Time Display -->
+    <div class="center">
+      <p>
+        <span id="displayTotalTime"></span>
+      </p>
+    </div>
+    <!-- Countdown Timer Inquiry -->
+    <div class="center">
+      <!-- <p>Please click the button to start the countdown timer:</p> -->
+      <button id="timer" class="center" onclick="startTimer()">
+        Start Timer
+      </button>
+      <p id="displayTimer" class="hidden center"></p>
+    </div>
+
+    <div>
+      <h1>Exam policies</h1>
+      <ol>
+        <li><strong>Keep your desk clear of all items except for approved materials.</strong></li>
+        <li>
+          <strong
+            >Electronic devices, other than calculators, must be powered off and kept out of sight.</strong
+          >
+        </li>
+        <li><strong>No talking, looking around, or communicating with other students during the exam.</strong></li>
+        <li>
+          <strong>Informational resources, such as textbooks, notes, and cheat sheets, are prohibited unless explicitly permitted by the instructor.</strong>
+        </li>
+        <li>
+          <strong>Restroom breaks will only be allowed in case of emergency but must follow the instructor's instruction.</strong>
+        </li>
+      </ol>
+      <p style="color: #1081F3; font-size: 24px;">
+        <strong>Any violation of these policies will be considered cheating and may result in disciplinary action.</strong>
+      </p>
+    </div>
+
+    <!-- Current Local Time Display -->
+    <footer>
+      <p>Current local time: <span id="localTime"></span></p>
+    </footer>
+
+    <script>
+      // Convert total time to hours and minutes and display
+      function displayTotalTime() {
+        document.getElementById("timeInquiry").style.display = "none";
+
+        var totalTime = parseInt(document.getElementById("totalTime").value);
+        var hours = Math.floor(totalTime / 60);
+        var minutes = totalTime % 60;
+        var displayString = "The total time of the Exam is ";
+        if (hours > 0) {
+          displayString += hours;
+          if (hours == 1) {
+            displayString += " hour ";
+          } else {
+            displayString += " hours ";
+          }
+        }
+        if (minutes > 0) {
+          displayString += minutes;
+          if (minutes == 1) {
+            displayString += " minute";
+          } else {
+            displayString += " minutes";
+          }
+          if (hours > 0) {
+            displayString += ", equivalently, " + totalTime + " minutes."
+          } else {
+            displayString += "."
+          }
+        }
+        var totalTimeDisplay = document.getElementById("displayTotalTime");
+        totalTimeDisplay.style.fontSize = "18px";
+        totalTimeDisplay.style.fontWeight = "bold";
+        totalTimeDisplay.style.color = "blue";
+        totalTimeDisplay.innerHTML = displayString;
+
+        // Remove hidden class from other elements
+        var hiddenElements = document.getElementsByClassName("hidden");
+        while (hiddenElements.length) {
+          hiddenElements[0].classList.remove("hidden");
+        }
+      }
+
+      // Start countdown timer
+      function startTimer() {
+        document.getElementById("timer").style.display = "none";
+        var totalTimeLeft =
+                parseInt(document.getElementById("totalTime").value)
+        // in minutes
+        var timeLeft = totalTimeLeft * 60; // in seconds
+
+        var interval = setInterval(function () {
+          var hoursleft = Math.floor(timeLeft / 3600);
+          var minutesleft = Math.floor((timeLeft - hoursleft * 3600) / 60);
+          var secondsleft = timeLeft % 60;
+
+          var timerDisplay = document.getElementById("displayTimer");
+          timerDisplay.style.fontSize = "48px";
+          timerDisplay.style.fontWeight = "bold";
+          timerDisplay.style.color = "#5548e5";
+          var displayTimer = "Time Remaining: ";
+          if (hoursleft>0) {
+            displayTimer += hoursleft + "h ";
+          }
+          displayTimer += minutesleft + "m " + secondsleft + "s";
+          timerDisplay.innerHTML = displayTimer;
+
+          timeLeft--;
+
+          if (timeLeft < 0) {
+            clearInterval(interval);
+            timerDisplay.innerHTML = "Time's up!";
+          }
+        }, 1000);
+      }
+
+      // Call displayTotalTime function when totalTime input changes
+      document
+        .getElementById("totalTime")
+        .addEventListener("change", displayTotalTime);
+
+      // Function to update local time display
+      function updateLocalTime() {
+        var now = new Date();
+        var localTime = now.toLocaleString();
+        document.getElementById("localTime").innerHTML = localTime;
+      }
+      // Update local time display every second
+      setInterval(updateLocalTime, 1000);
+    </script>
+  </body>
+</html>
