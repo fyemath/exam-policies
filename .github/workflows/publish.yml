@@ -7,13 +7,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Deploy 🚀
       # only deploy when push to main
         uses: JamesIves/github-pages-deploy-action@v4
         with:
         # The branch the action should deploy to.
-          branch: gh-pages
+          # branch: gh-pages
         # The folder the action should deploy. Adapt if you changed in Quarto config
-          folder: docs
+          folder: .
