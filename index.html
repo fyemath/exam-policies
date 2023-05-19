@@ -2,68 +2,113 @@
 <html>
   <head>
     <title>Exam Policy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      html {
+        scroll-snap-type: y mandatory;
+      }
       body {
-        font-family: Arial, sans-serif;
-        /*  */
-        padding: 20px;
+        font-family: "Noto Sans", Arial, sans-serif;
+        scroll-snap-align: start;
+        max-width: 1080px;
+        margin: auto;
+        line-height: 1.5;
       }
       h1 {
-        font-size: 36px;
-        margin-bottom: 20px;
+        font-size: 2.5rem;
+        text-align: center;
+      }
+      h2 {
+        font-size: 2rem;
       }
       p {
-        font-size: 16px;
-        margin-bottom: 10px;
+        font-size: 1rem;
+        margin: 0.5rem 0;
       }
-      .timer {
-        font-size: 24px;
+      li {
+        font-size: 1rem;
         font-weight: bold;
-        margin-top: 10px;
       }
-      /* Add a class to hide elements */
+      #timer {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0.25rem;
+      }
       .hidden {
         display: none;
       }
       .center {
         text-align: center;
       }
-      html {
-        scroll-snap-type: y mandatory;
-      }
-      body {
-        min-height: 90vh;
-        scroll-snap-align: start;
-        font-family: sans-serif;
-        max-width: 900px;
-        margin: auto;
-        padding: 1em;
-        line-height: 1.5;
-      }
       footer {
-        position: absolute;
-        bottom: 20px;
+        position: fixed;
+        bottom: 0px;
         left: 0;
         width: 100%;
-        height: 5vh;
         background-color: #f2f2f2;
         border-top: 1px solid #f0c7d4;
-        font-size: 24px;
-        font-weight: bold;
         color: #655cc4;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       #timeInquiry {
         border: 1pt solid #079fdb;
       }
+      strong {
+        font-weight: bold;
+      }
+      #violation {
+        color: #1081f3;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          font-size: 0.875rem;
+        }
+
+        h1 {
+          font-size: 1.75rem;
+        }
+        h2 {
+          font-size: 1.25rem;
+        }
+
+        p, li{
+          font-size: 0.875rem;
+        }
+
+        footer {
+          font-size: 1.25rem;
+        }
+
+        #timeInquiry {
+          font-size: 0.875rem;
+        }
+
+        ol, ul {
+          margin-left: 1.5rem;
+          padding-left: 1.5rem;
+        }
+      }
     </style>
   </head>
   <body>
-    <h1 class="center"><span contenteditable="true">Time and Exam Policy</span></h1>
+    <h1><span contenteditable="true">Time and Exam Policy</span></h1>
 
     <!-- Total Time Inquiry -->
     <div id="timeInquiry" class="center">
-      <p>Please enter the total time in minutes to initiate the timer and hide this box.</p>
+      <p>
+        Please enter the total time in minutes in the box below to initiate the timer.
+      </p>
       <input type="number" id="totalTime" min="1" required />
       <p>To start over, please refresh the page.</p>
     </div>
@@ -83,31 +128,40 @@
       <p id="displayTimer" class="hidden center"></p>
     </div>
 
-    <div contenteditable="true">
-      <h1>Exam policies</h1>
+    <div contenteditable="true" spellcheck="true">
+      <h2>Exam policies</h2>
       <ol>
-        <li><strong>Keep your desk clear of all items except for approved materials.</strong></li>
         <li>
-          <strong
-            >Electronic devices, other than calculators, must be powered off and kept out of sight.</strong
-          >
-        </li>
-        <li><strong>No talking, looking around, or communicating with other students during the exam.</strong></li>
-        <li>
-          <strong>Informational resources, such as textbooks, notes, and cheat sheets, are prohibited unless explicitly permitted by the instructor.</strong>
+          Keep your desk clear of all items except for approved
+            materials.
         </li>
         <li>
-          <strong>Restroom breaks will only be allowed in case of emergency but must follow the instructor's instruction.</strong>
+          Electronic devices, other than calculators, must be powered off and
+            kept out of sight.
+        </li>
+        <li>
+          No talking, looking around, or communicating with other students
+            during the exam.
+        </li>
+        <li>
+          Informational resources, such as textbooks, notes, and cheat
+            sheets, are prohibited unless explicitly permitted by the
+            instructor.
+        </li>
+        <li>
+          Restroom breaks will only be allowed in case of emergency, but you
+            must follow the instructor's instructions.
         </li>
       </ol>
-      <p style="color: #1081F3; font-size: 24px;">
-        <strong>A violation will result in academic and/or disciplinary sanctions.</strong>
+      <p id="violation">
+        A violation will result in academic and/or disciplinary
+          sanctions.
       </p>
     </div>
 
     <!-- Current Local Time Display -->
     <footer>
-      <p>Current local time: <span id="localTime"></span></p>
+      <span id="localTime"></span>
     </footer>
 
     <script>
@@ -135,13 +189,13 @@
             displayString += " minutes";
           }
           if (hours > 0) {
-            displayString += ", equivalently, " + totalTime + " minutes."
+            displayString += ", equivalently, " + totalTime + " minutes.";
           } else {
-            displayString += "."
+            displayString += ".";
           }
         }
         var totalTimeDisplay = document.getElementById("displayTotalTime");
-        totalTimeDisplay.style.fontSize = "18px";
+        totalTimeDisplay.style.fontSize = "1.25rem";
         totalTimeDisplay.style.fontWeight = "bold";
         totalTimeDisplay.style.color = "blue";
         totalTimeDisplay.innerHTML = displayString;
@@ -156,8 +210,9 @@
       // Start countdown timer
       function startTimer() {
         document.getElementById("timer").style.display = "none";
-        var totalTimeLeft =
-                parseInt(document.getElementById("totalTime").value)
+        var totalTimeLeft = parseInt(
+          document.getElementById("totalTime").value
+        );
         // in minutes
         var timeLeft = totalTimeLeft * 60; // in seconds
 
@@ -167,11 +222,12 @@
           var secondsleft = timeLeft % 60;
 
           var timerDisplay = document.getElementById("displayTimer");
-          timerDisplay.style.fontSize = "48px";
+          timerDisplay.style.fontSize = "3rem";
           timerDisplay.style.fontWeight = "bold";
           timerDisplay.style.color = "#5548e5";
+          timerDisplay.style.margin = "2rem";
           var displayTimer = "Time Remaining: ";
-          if (hoursleft>0) {
+          if (hoursleft > 0) {
             displayTimer += hoursleft + "h ";
           }
           displayTimer += minutesleft + "m " + secondsleft + "s";
@@ -195,7 +251,10 @@
       function updateLocalTime() {
         var now = new Date();
         var localTime = now.toLocaleString();
-        document.getElementById("localTime").innerHTML = localTime;
+        var localTimeDisplay = document.getElementById("localTime");
+        localTimeDisplay.innerHTML = "Current local time: " + localTime;
+        localTimeDisplay.style.fontSize = "2rem";
+        localTimeDisplay.style.fontWeight = "bold";
       }
       // Update local time display every second
       setInterval(updateLocalTime, 1000);
