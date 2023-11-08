@@ -18,6 +18,10 @@
         max-width: 1080px;
         margin: auto;
         line-height: 1.5;
+        speak: normal;
+        voice-volume: loud;
+        voice-rate: medium;
+        voice-pitch: low;
       }
       h1 {
         font-size: 2.5rem;
@@ -60,6 +64,7 @@
       }
       #timeInquiry {
         border: 1pt solid #079fdb;
+        speak: none;
       }
       strong {
         font-weight: bold;
@@ -101,11 +106,11 @@
       }
     </style>
   </head>
-  <body>
+  <body aria-live='polite'>
     <h1><span contenteditable="true">Time and Exam Policy</span></h1>
 
     <!-- Total Time Inquiry -->
-    <div id="timeInquiry" class="center">
+    <div id="timeInquiry" class="center" aria-hidden="true">
       <p>
         Please enter the total time in minutes in the box below to initiate the timer.
       </p>
@@ -122,10 +127,10 @@
     <!-- Countdown Timer Inquiry -->
     <div class="center">
       <!-- <p>Please click the button to start the countdown timer:</p> -->
-      <button id="timer" class="center" onclick="startTimer()">
+      <button id="timer" class="center" onclick="startTimer()" aria-hidden="true">
         Start Timer
       </button>
-      <p id="displayTimer" class="hidden center"></p>
+      <p id="displayTimer" class="hidden center" aria-hidden="true"></p>
     </div>
 
     <div contenteditable="true" spellcheck="true">
@@ -161,7 +166,7 @@
 
     <!-- Current Local Time Display -->
     <footer>
-      <span id="localTime"></span>
+      <span id="localTime" aria-hidden="true"></span>
     </footer>
 
     <script>
