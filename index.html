@@ -22,7 +22,7 @@
         voice-volume: loud;
         voice-rate: medium;
         voice-pitch: low;
-      }
+      }      
       h1 {
         font-size: 2.5rem;
         text-align: center;
@@ -67,6 +67,8 @@
         align-items: center;
       }
       #timeInquiry {
+        margin-top: 1em;
+        padding: 1em auto;
         border: 1pt solid #079fdb;
         speak: none;
       }
@@ -111,8 +113,6 @@
     </style>
   </head>
   <body aria-live='polite'>
-    <h1><span contenteditable="true">Time and Exam Policy</span></h1>
-
     <!-- Total Time Inquiry -->
     <div id="timeInquiry" class="center" aria-hidden="true">
       <p>
@@ -140,30 +140,13 @@
     <div contenteditable="true" spellcheck="true">
       <h2>Exam policies</h2>
       <ol>
-        <li>
-          Keep your desk clear of all items except for approved
-            materials.
-        </li>
-        <li>
-          Electronic devices must be powered off and
-            kept out of sight.
-        </li>
-        <li>
-          No looking around, or communicating with others
-            during the exam.
-        </li>
-        <li>
-          Informational resources, such as cheat
-            sheets, are prohibited unless explicitly permitted by the
-            instructor.
-        </li>
-        <li>
-          Restroom breaks will only be allowed in case of emergency and within 5 minutes.
-        </li>
+        <li>Keep your desk clear of all items except approved materials (e.g., pens, pencils, erasers, and a scientific calculator).</li>
+        <li>Programmable calculators are not allowed. All personal electronic devices must be turned off and kept out of sight.</li>
+        <li>Do not look around or communicate with others during the exam. If you need to clarify a question, please raise your hand.</li>
+        <li>No breaks are allowed during the exam. Please use the restroom before the exam begins.</li>
       </ol>
       <p id="violation">
-        A violation will result in academic and/or disciplinary
-          sanctions.
+        Violations of these policies will result in disqualification or other disciplinary actions.
       </p>
     </div>
 
@@ -203,7 +186,7 @@
           }
         }
         var totalTimeDisplay = document.getElementById("displayTotalTime");
-        totalTimeDisplay.style.fontSize = "1.25rem";
+        totalTimeDisplay.style.fontSize = "1.5rem";
         totalTimeDisplay.style.fontWeight = "bold";
         totalTimeDisplay.style.color = "blue";
         totalTimeDisplay.innerHTML = displayString;
